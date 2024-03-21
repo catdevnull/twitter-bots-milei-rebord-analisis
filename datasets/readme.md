@@ -20,6 +20,14 @@ bots2 pero filtrado para solo incluir los tweets buscados (bots2 es 8GB+ descomp
 
 un archivo generado por `node analizar.mjs | sort | uniq -u` a partir de `milei` y `rebord` con las ids y nombres de usuarios de los usuarios que dieron positivo el test de bot.
 
+## `milei` y `rebord`
+
+este tiene varios tipos de datos, de varios tweets (incluyendo algunos que después de analizarlos se concluyó que no tenían bots):
+
+- `[tweet id].json`: el json del tweet en si
+- `[tweet id].likers.jsonl`: todos los usuarios que likearon el tweet
+- `[tweet id].retweeters.jsonl`: todos los usuarios que retweetearon el tweet
+
 # compresión
 
 los datasets "grandes" (`bots` y `bots2`) están comprimidos con [ZSTD](https://github.com/facebook/zstd) con un tar adentro (porque ZSTD comprime muy bien y descomprime rápido). deberías poder descomprimirlo en cualquier linux instalando zstd (está en todas las distros) y corriendo `tar -xvf $ARCHIVO.tar.zst`.
