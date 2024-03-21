@@ -1,3 +1,15 @@
 */*.jsonl
 */*.json
+datasets/*/*.json
+datasets/*/*.jsonl
+
+datasets/bots.tar.zst
+datasets/bots2.tar.zst
+
 analisis.xlsx
+node_modules
+
+datasets/bots
+datasets/bots2
+
+contrib/

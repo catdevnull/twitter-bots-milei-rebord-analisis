@@ -31,6 +31,7 @@ async function checkBots(path) {
     const user = JSON.parse(line);
     const flags = getFlags(user);
     if (flags.nombre && flags.pocosFollowers && flags.reciente) {
+      console.log(JSON.stringify({ id: user.id_str, username: user.username }));
       bots++;
     }
   }
@@ -43,31 +44,31 @@ async function checkDir(dir) {
     if (!name.endsWith(".json")) continue;
     const tweet = await readJsonFile(join(dir, name));
     const likersPath = join(dir, `${basename(name, ".json")}.likers.jsonl`);
-    const likers = await checkBots(likersPath);
+    // const likers = await checkBots(likersPath);
     const retweetersPath = join(
       dir,
       `${basename(name, ".json")}.retweeters.jsonl`
     );
     const retweeters = await checkBots(retweetersPath);
-    console.log(
-      [
-        tweet.user.username,
-        tweet.date,
-        tweet.rawContent.split("\n")[0],
-        likers.bots,
-        likers.total,
-        Math.floor(likers.percent * 100000) / 100000,
-        retweeters.bots,
-        retweeters.total,
-        Math.floor(retweeters.percent * 100000) / 100000,
-      ].join("\t")
-    );
+    // console.log(
+    //   [
+    //     tweet.user.username,
+    //     tweet.date,
+    //     tweet.rawContent.split("\n")[0],
+    //     likers.bots,
+    //     likers.total,
+    //     Math.floor(likers.percent * 100000) / 100000,
+    //     retweeters.bots,
+    //     retweeters.total,
+    //     Math.floor(retweeters.percent * 100000) / 100000,
+    //   ].join("\t")
+    // );
   }
 }
 
 if (process.argv[2]) console.debug(await checkBots());
 else {
-  for (const ref of ["rebord", "milei"]) {
+  for (const ref of ["datasets/rebord", "datasets/milei"]) {
     await checkDir(ref);
   }
 }
